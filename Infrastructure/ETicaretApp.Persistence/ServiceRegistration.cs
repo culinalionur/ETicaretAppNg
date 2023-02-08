@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ETicaretApp.Persistence
 {
     public static class ServiceRegistration
     {
-        public static void 
+        public static void AddPersistenceService(this IServiceCollection)
     }
 }
