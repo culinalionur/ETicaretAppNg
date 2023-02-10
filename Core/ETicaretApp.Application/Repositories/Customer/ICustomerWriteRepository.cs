@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ETicaretApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretApp.Application.Repositories.Customer
+namespace ETicaretApp.Application.Repositories
 {
-    internal interface ICustomerWriteRepository
+    public interface ICustomerWriteRepository : IWriteRepository<Customer>
     {
     }
 }

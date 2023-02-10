@@ -1,12 +1,18 @@
-﻿using System;
+﻿using ETicaretApp.Application.Repositories;
+using ETicaretApp.Domain.Entities;
+using ETicaretApp.Persistence.Contexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretApp.Persistence.Repositories.Product
+namespace ETicaretApp.Persistence.Repositories
 {
-    internal class ProductReadRepository
+    public class ProductReadRepository : ReadRepository<Product>, IProductReadRepository
     {
+        public ProductReadRepository(ETicaretAPIDbContext context) : base(context)
+        {
+        }
     }
 }
