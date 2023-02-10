@@ -1,10 +1,14 @@
+using ETicaretApp.Application.Validators.Products;
+using ETicaretApp.Infrastructure.Filters;
 using ETicaretApp.Persistence;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt => opt.Filters.Add<ValidationFilter>)
+    .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>());
 
 builder.Services.AddPersistenceService();
 
