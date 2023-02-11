@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretApp.Application.ViewModels.Products
+namespace ETicaretApp.Application.Features.Queries.GetByIdProduct
 {
-    public class VM_Create_Product
+    public class GetByIdProductQueryResponse
     {
         public string Name { get; set; }
         public int Stock { get; set; }
         public float Price { get; set; }
-
     }
 }

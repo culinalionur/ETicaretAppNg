@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ETicaretApp.Application.Features.Queries.GetAllProducts
 {
-    internal class GetAllProductQueryResponse
+    public class GetAllProductQueryResponse
     {
+        public int TotalProducts { get; set; }
+        public object Products { get; set; }
     }
 }

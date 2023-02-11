@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(opt => opt.Filters.Add<ValidationFilter>)
+builder.Services.AddControllers(opt => opt.Filters.Add<ValidationFilter>())
     .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>());
 
 builder.Services.AddPersistenceService();
