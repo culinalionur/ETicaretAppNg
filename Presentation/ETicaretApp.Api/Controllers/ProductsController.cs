@@ -1,4 +1,8 @@
-﻿using ETicaretApp.Application.Features.Queries.GetAllProducts;
+﻿using ETicaretApp.Application.Features.Commands.ProductCQRS.CreateProduct;
+using ETicaretApp.Application.Features.Commands.ProductCQRS.RemoveProduct;
+using ETicaretApp.Application.Features.Commands.ProductCQRS.UpdateProduct;
+using ETicaretApp.Application.Features.Queries.GetAllProducts;
+using ETicaretApp.Application.Features.Queries.GetByIdProduct;
 using ETicaretApp.Application.Repositories;
 using ETicaretApp.Application.ViewModels.Products;
 using ETicaretApp.Domain.Entities;
@@ -21,35 +25,37 @@ namespace ETicaretApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]GetAllProductQueryRequest getAllProductQueryRequest)
+        public async Task<IActionResult> Get(GetAllProductQueryRequest getAllProductQueryRequest)
         {
             GetAllProductQueryResponse response = await _mediator.Send(getAllProductQueryRequest);
             return Ok(response);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get([FromQuery]GetByIdProductQueryRequest model)
         {
-            return Ok();
+            GetByIdProductQueryResponse response = await _mediator.Send(model);
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_Create_Product model)
+        public async Task<IActionResult> Post(CreateProductCommandRequest model)
         {
+            CreateProductCommandResponse response = await _mediator.Send(model);
     
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(VM_Update_Product model)
+        public async Task<IActionResult> Put(UpdateProductCommandRequest model)
         {
-      
+            UpdateProductCommandResponse response = await _mediator.Send(model);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(RemoveProductCommandRequest model)
         {
-        
+            RemoveProductCommandResponse response = await _mediator.Send(model);
             return Ok();
         }
     }
