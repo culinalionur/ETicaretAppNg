@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ETicaretApp.Application.Features.Commands.ProductCQRS.RemoveProduct
 {
-    internal class RemoveProductCommandResponse
+    public class RemoveProductCommandResponse
     {
     }
 }

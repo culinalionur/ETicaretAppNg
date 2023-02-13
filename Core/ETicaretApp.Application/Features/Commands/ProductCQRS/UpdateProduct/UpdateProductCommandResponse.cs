@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ETicaretApp.Application.Features.Commands.ProductCQRS.UpdateProduct
 {
-    internal class UpdateProductCommandResponse
+    public class UpdateProductCommandResponse
     {
     }
 }

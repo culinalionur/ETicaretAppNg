@@ -1,4 +1,5 @@
 ﻿using ETicaretApp.Application.Repositories;
+using ETicaretApp.Domain.Entities.Identity;
 using ETicaretApp.Persistence.Contexts;
 using ETicaretApp.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace ETicaretApp.Persistence
         public static void AddPersistenceService(this IServiceCollection services)
         {
             services.AddDbContext<ETicaretAPIDbContext>(opt => opt.UseSqlServer(Configuration.ConnectionString));
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ETicaretAPIDbContext>();
             services.AddScoped<ICustomerReadRepository, CustomerReadRepository>();
             services.AddScoped<ICustomerWriteRepository , CustomerWriteRepository>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
