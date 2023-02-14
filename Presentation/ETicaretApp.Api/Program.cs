@@ -2,6 +2,9 @@ using ETicaretApp.Application.Validators.Products;
 using ETicaretApp.Infrastructure.Filters;
 using ETicaretApp.Persistence;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,21 @@ builder.Services.AddPersistenceService();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication("Admin")
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new()
+        {
+            ValidateAudience = true, 
+            ValidateIssuer = true, //Oluþturulacak token deðerini kimin daðýttýðýný ifade ederiz.
+            ValidateLifetime = true, //Tokenýn süresini kontrol eder
+            ValidateIssuerSigningKey = true,
+
+            ValidAudience = builder.Configuration["Token:Audience"],
+            ValidIssuer = builder.Configuration["Token:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+        };
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
