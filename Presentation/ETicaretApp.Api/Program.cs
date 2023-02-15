@@ -1,4 +1,5 @@
 using ETicaretApp.Application.Validators.Products;
+using ETicaretApp.Infrastructure;
 using ETicaretApp.Infrastructure.Filters;
 using ETicaretApp.Persistence;
 using FluentValidation.AspNetCore;
@@ -14,14 +15,14 @@ builder.Services.AddControllers(opt => opt.Filters.Add<ValidationFilter>())
     .AddFluentValidation(conf => conf.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>());
 
 builder.Services.AddPersistenceService();
-
+builder.Services.AddInfrastructureServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication("Admin")
-    .AddJwtBearer(opt =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer("Admin",opt =>
     {
         opt.TokenValidationParameters = new()
         {
@@ -45,7 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

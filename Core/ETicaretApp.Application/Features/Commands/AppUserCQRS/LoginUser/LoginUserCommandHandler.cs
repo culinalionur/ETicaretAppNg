@@ -46,10 +46,7 @@ namespace ETicaretApp.Application.Features.Commands.AppUserCQRS.LoginUser
                     Token = token
                 };
             }
-            return new LoginUserErrorCommandResponse()
-            {
-                Message = "Kullanıcı adı veya şifre hatalıdır."
-            };
+            throw new AuthenticationErrorException();
            
         }
     }
