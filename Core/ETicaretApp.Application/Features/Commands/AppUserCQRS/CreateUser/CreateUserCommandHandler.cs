@@ -1,4 +1,6 @@
-﻿using ETicaretApp.Application.Exceptions;
+﻿using ETicaretApp.Application.Abstractions.Services;
+using ETicaretApp.Application.DTOs.UserDto;
+using ETicaretApp.Application.Exceptions;
 using ETicaretApp.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -12,39 +14,30 @@ namespace ETicaretApp.Application.Features.Commands.AppUserCQRS.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest, CreateUserCommandResponse>
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IUserService _userService;
 
-        public CreateUserCommandHandler(UserManager<AppUser> userManager)
+        public CreateUserCommandHandler(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
-          IdentityResult result = await  _userManager.CreateAsync(new()
+
+           CreateUserResponse response = await _userService.CreateAsync(new()
             {
-                Id = Guid.NewGuid().ToString(),
+                Email = request.Email,
                 NameSurname = request.NameSurname,
-                UserName = request.Username,
-                Email = request.Email
+                Password = request.Password,
+                PasswordConfirm = request.PasswordConfirm,
+                Username = request.Username
+            });
 
-            }, request.Password);
-
-            CreateUserCommandResponse response = new() { Succeeded = result.Succeeded };
-
-            if (result.Succeeded)
+            return new()
             {
-                response.Message = "Kullanıcı başarıyla oluşturulmuştur";
-            }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    response.Message += $"{error.Code} - {error.Description}\n"; 
-                }
-            }
-            return response;
-            
+                Message = response.Message,
+                Succeeded = response.Succeeded
+            };
         }
     }
 }

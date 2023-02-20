@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ETicaretApp.Application.Abstractions.Services;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ETicaretApp.Application
         public static void AddApplicationService(this IServiceCollection collection)
         {
             collection.AddMediatR(typeof(ServiceRegistration));
+            
         }
     }
 }

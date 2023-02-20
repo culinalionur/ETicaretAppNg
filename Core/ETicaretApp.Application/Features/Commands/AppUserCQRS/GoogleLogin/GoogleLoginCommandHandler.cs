@@ -1,4 +1,5 @@
-﻿using ETicaretApp.Domain.Entities.Identity;
+﻿using ETicaretApp.Application.Abstractions.Services;
+using ETicaretApp.Domain.Entities.Identity;
 using Google.Apis.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
